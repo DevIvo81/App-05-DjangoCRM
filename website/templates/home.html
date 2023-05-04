@@ -1,19 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../static/img/hammock.png">
+{% block title %}
+DjangoCRM
+{% endblock title%}
 
-    <title>
-        DjangoCRM
-    </title>
-</head>
 
-<body>
-    <h1 style="text-align: center;">Hello Django!</h1>
-</body>
+{% block content %}
 
-</html>
+<div class="col-md-6 offset-md-3">
+
+    {% if user.is_authenticated %}
+
+    <h1>Hello from Django!</h1>
+
+    {% else %}
+
+    <h1>Login</h1>
+    <br>
+    <form method="POST" action="{% url 'home' %}">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <input type="text" class="form-control" name="username"
+                placeholder="Username" required>
+        </div>
+
+        <div class="mb-3">
+            <input type="password" class="form-control" name="password"
+                placeholder="Password" required>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-secondary">Login</button>
+
+    </form>
+
+</div>
+
+{% endif %}
+
+{% endblock content %}
